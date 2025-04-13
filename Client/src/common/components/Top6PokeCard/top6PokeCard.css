@@ -1,0 +1,9 @@
+.top6PokeCard__wrap {
+  width: 16.67%;
+  height: 90%;
+  background-color: #ce0808;
+  border-radius: 0.3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

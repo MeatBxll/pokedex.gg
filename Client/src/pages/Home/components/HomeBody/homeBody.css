@@ -1,0 +1,36 @@
+.HomeBody__wrap {
+  display: flex;
+  flex-direction: column;
+  padding-top: 10rem;
+  align-items: center;
+  gap: 7rem;
+}
+.HomeBody__search {
+  width: 40rem;
+  height: 4rem;
+  background-color: #282830;
+  border-radius: 3rem;
+}
+
+.HomeBody__top6 {
+  width: 60rem;
+  height: 20rem;
+  background-color: #282830;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.HomeBody__build-your-team {
+  width: 40rem;
+  height: 20rem;
+  background-color: #282830;
+}
+
+.HomeBody__footer {
+  width: 100%;
+  height: 20rem;
+  background-color: #282830;
+  border-top: 0.5rem;
+  border-color: #282830;
+}
