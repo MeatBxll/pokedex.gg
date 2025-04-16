@@ -1,0 +1,27 @@
+.SubHeaderButton {
+  font-family: Arial, Helvetica, sans-serif;
+  text-decoration: none;
+  user-select: none;
+  font-size: 1rem;
+  color: rgba(240, 248, 255, 0.644);
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.SubHeaderButton:hover {
+  border-bottom: 0.3rem rgb(240, 248, 255) solid;
+  color: aliceblue;
+}
+
+.SubHeaderButton__isCurrentPage {
+  font-family: Arial, Helvetica, sans-serif;
+  text-decoration: none;
+  user-select: none;
+  font-size: 1rem;
+  border-bottom: 0.3rem rgb(240, 248, 255) solid;
+  color: aliceblue;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}

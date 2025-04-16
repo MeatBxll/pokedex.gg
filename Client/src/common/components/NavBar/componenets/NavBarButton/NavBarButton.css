@@ -1,0 +1,18 @@
+.navBarButton__button {
+  padding: 0.5rem 0.7rem;
+  background-color: #242424;
+  border: none;
+  text-decoration: none;
+  font-family: Arial, Helvetica, sans-serif;
+  color: aliceblue;
+  font-size: 1.1rem;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  border-radius: 0.5rem;
+  user-select: none;
+}
+
+.navBarButton__button:hover {
+  background-color: #726e6e1e;
+}

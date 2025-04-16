@@ -1,7 +1,10 @@
 import "./homeBody.css";
-import { Top6PokeCard } from "../../../../common/components/Top6PokeCard/Top6PokeCard";
+import { Top6PokeCard } from "../Top6PokeCard/Top6PokeCard";
+import { useState } from "react";
 
 export const HomeBody = () => {
+  const [isHovered, setIsHovered] = useState(false);
+
   return (
     <div className="HomeBody__wrap">
       <section className="HomeBody__search-Wrap">
@@ -47,8 +50,48 @@ export const HomeBody = () => {
           />
         </div>
       </section>
-      <section className="HomeBody__build-your-team"></section>
-      <footer className="HomeBody__footer"></footer>
+      <a
+        href="/buildTeam"
+        className="HomeBody__build-your-team"
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+      >
+        <h3 className="HomeBody__build-your-team-title">Build Your Team</h3>
+        <div className="HomeBody__build-your-team-img-wrap">
+          <img
+            className={
+              isHovered
+                ? "HomeBody__build-your-team-img-large"
+                : "HomeBody__build-your-team-img"
+            }
+            src="https://www.pngplay.com/wp-content/uploads/11/Mewtwo-Pokemon-No-Background-Clip-Art.png"
+          />
+          <img
+            className={
+              isHovered
+                ? "HomeBody__build-your-team-img-large"
+                : "HomeBody__build-your-team-img"
+            }
+            src="https://www.pngplay.com/wp-content/uploads/10/Blastoise-Pokemon-PNG-Pic-Background.png"
+          />
+        </div>
+      </a>
+      <footer className="HomeBody__footer">
+        <p className="HomeBody__footer-text">
+          We dont have any copyright so I am just going to ipsum lorem Lorem
+          ipsum dolor sit amet consectetur adipisicing elit. Nemo, omnis.
+          Sapiente culpa dolor maiores blanditiis soluta, voluptatibus vero
+          nesciunt reiciendis cupiditate, accusamus dignissimos quod eum sed
+          provident sit. Vel, laborum. ipsum Lorem ipsum dolor sit amet,
+          consectetur adipisicing elit. Velit, omnis itaque maxime incidunt
+          minus odit, accusantium esse dicta sit laudantium non. Unde quaerat
+          accusamus laborum officia magni cum reiciendis doloremque. Lorem ipsum
+          dolor sit amet consectetur adipisicing elit. Non sapiente architecto
+          id ipsa odit molestias, libero asperiores unde. Voluptatibus officiis
+          eligendi odio sint impedit consequatur sit. Enim voluptatibus odio
+          quisquam.
+        </p>
+      </footer>
     </div>
   );
 };

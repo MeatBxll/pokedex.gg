@@ -57,6 +57,35 @@
   width: 40rem;
   height: 20rem;
   background-color: #282830;
+  background: linear-gradient(rgba(94, 17, 17, 0.123), rgba(136, 10, 10, 0.548)),
+    url(https://static1.cbrimages.com/wordpress/wp-content/uploads/2022/12/pok-mon-every-generation-ranked-by-ash-ketchum-s-team.jpg);
+  background-size: auto 20rem;
+  border-radius: 1rem;
+  text-decoration: none;
+}
+
+.HomeBody__build-your-team-title {
+  font-family: Arial, Helvetica, sans-serif;
+  color: aliceblue;
+  font-size: 2rem;
+  padding: 1rem;
+  width: 100%;
+  text-align: center;
+}
+
+.HomeBody__build-your-team-img-wrap {
+  display: flex;
+  justify-content: space-between;
+}
+
+.HomeBody__build-your-team-img {
+  width: 12rem;
+  height: auto;
+}
+
+.HomeBody__build-your-team-img-large {
+  width: 15rem;
+  height: auto;
 }
 
 .HomeBody__footer {
@@ -65,4 +94,15 @@
   background-color: #282830;
   border-top: 0.5rem;
   border-color: #282830;
+  color: rgba(240, 248, 255, 0.336);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1.1rem;
+}
+
+.HomeBody__footer-text {
+  width: 60rem;
+  text-align: center;
 }

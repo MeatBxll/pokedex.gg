@@ -21,9 +21,11 @@ export const Top6PokeCard = (props: Top6PokeCardProps) => {
   const [isHovered, setIsHovered] = useState(false);
   const typeClassName =
     "top6PokeCard__type " + "top6PokeCard__" + type.toLowerCase() + "Type";
+
   return (
     <div className="top6PokeCard__wrap">
       <a
+        href="/pokePage"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
         className={typeClassName}
