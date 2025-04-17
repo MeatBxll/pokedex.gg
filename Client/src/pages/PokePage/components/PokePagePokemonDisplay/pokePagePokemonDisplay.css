@@ -1,0 +1,31 @@
+.pokePagePokemonDisplay__img {
+  width: 10rem;
+  height: 10rem;
+  border: 0.2rem solid rgb(103, 104, 104);
+  border-radius: 1rem;
+  padding: 1rem;
+  box-shadow: 0.1rem 0.1rem 0.1rem 0.1rem rgba(0, 0, 0, 0.151);
+}
+
+.pokePagePokemonDisplay__button {
+  background-color: transparent;
+  border: none;
+  color: rgb(103, 104, 104);
+  padding: 0.5rem;
+  border-radius: 1rem;
+}
+
+.pokePagePokemonDisplay__button:hover {
+  background-color: rgba(103, 104, 104, 0.281);
+}
+
+.pokePagePokemonDisplay__button-wrap {
+  width: 10rem;
+  display: flex;
+  justify-content: center;
+  padding: 0.2rem;
+  gap: 2rem;
+  background-color: rgba(103, 104, 104, 0.082);
+  border-radius: 0.5rem;
+  box-shadow: 0.1rem 0.1rem 0.1rem 0.1rem rgba(0, 0, 0, 0.034);
+}

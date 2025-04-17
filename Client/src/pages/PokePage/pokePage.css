@@ -1,0 +1,11 @@
+.pokePage__wrap {
+  width: 100%;
+  user-select: none;
+}
+
+.pokePage__body {
+  padding: 3%;
+}
+
+.pokePage__pokemon-img {
+}
