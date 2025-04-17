@@ -1,0 +1,28 @@
+.AllPokemonSingle__wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  border: 0.2rem #4151cc;
+  box-shadow: 0.1rem 0.1rem 0.1rem 0.1rem #4151cc67;
+  width: 10rem;
+  height: 10rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 1rem;
+  background-color: #363636;
+}
+
+.AllPokemonSingle__wrap:hover {
+  background-color: #4151cc67;
+}
+
+.AllPokemonSingle__poke-name {
+  font-family: Arial, Helvetica, sans-serif;
+  color: aliceblue;
+  font-size: 1rem;
+}
+
+.AllPokemonSingle__poke-img {
+  width: 5rem;
+  height: auto;
+}

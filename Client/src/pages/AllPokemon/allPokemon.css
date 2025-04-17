@@ -1,0 +1,32 @@
+.AllPokemon__current-20-wrap {
+  display: flex;
+  gap: 1rem;
+  padding: 3rem 15rem;
+  flex-wrap: wrap;
+  user-select: none;
+}
+
+.AllPokemon__next-page {
+  user-select: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  font-family: Arial, Helvetica, sans-serif;
+  color: aliceblue;
+  font-size: 2rem;
+  padding-bottom: 5rem;
+  padding-top: 2rem;
+}
+
+.AllPokemon__next-page-button {
+  background-color: transparent;
+  border: none;
+  color: aliceblue;
+  padding: 0.5rem;
+  border-radius: 3rem;
+}
+
+.AllPokemon__next-page-button:hover {
+  background-color: rgba(0, 0, 0, 0.116);
+}
