@@ -46,7 +46,7 @@ export const HomeBody = () => {
           <Top6PokeCard
             img="https://www.pngplay.com/wp-content/uploads/12/Snorlax-Pokemon-Transparent-Images.png"
             type="NORMAL"
-            name="Snorelax"
+            name="Snorlax"
           />
         </div>
       </section>
