@@ -1,5 +1,5 @@
 import { pokemonApi } from "../pokemonApi";
 
-export const pokemonApiEndpoints= pokemonApi.injectEndpoints({
+export const pokemonApiEndpoints = pokemonApi.injectEndpoints({
   endpoints: (builder) => ({}),
 });
