@@ -8,7 +8,7 @@ fetch("https://pokeapi.co/api/v2/pokemon/ditto")
   .then((data) => {
     console.log(data);
   })
-  .catch((err) => console.log(err));
+  .catch((err) => console.log(err)); //need to work on this one
 
 const fetchPokemon = async (pokemonName) => {
   try {
