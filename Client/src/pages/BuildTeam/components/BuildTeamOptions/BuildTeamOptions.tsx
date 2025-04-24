@@ -16,7 +16,7 @@ export const BuildTeamOptions = () => {
               </button>
               <div className="buildTeamOptions__options-suboption-wrap">
                 {option.options.map((subOption, index) => (
-                  <button key={index}>{subOption}he</button>
+                  <button key={index}>{subOption}</button>
                 ))}
               </div>
             </div>
