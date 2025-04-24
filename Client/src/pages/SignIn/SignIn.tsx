@@ -1,3 +1,3 @@
 export const SignIn = () => {
-  return null;
+  return <div></div>;
 };
