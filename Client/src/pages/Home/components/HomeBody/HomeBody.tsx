@@ -1,6 +1,7 @@
 import "./homeBody.css";
 import { Top6PokeCard } from "../Top6PokeCard/Top6PokeCard";
 import { useState } from "react";
+import { SearchBar } from "../../../../common/components/SearchBar/SearchBar";
 
 export const HomeBody = () => {
   const [isHovered, setIsHovered] = useState(false);
@@ -12,7 +13,11 @@ export const HomeBody = () => {
           className="HomeBody__searchImg"
           src="https://www.pngplay.com/wp-content/uploads/11/Heliolisk-Pokemon-PNG-HD-Quality.png"
         />
-        <div className="HomeBody__search"> </div>
+        <div className="HomeBody__search">
+          <div className="hombody__search-left"></div>
+          <SearchBar />
+          <div className="hombody__search-right"> .GG </div>
+        </div>
       </section>
       <section className="HomeBody__top6-Wrap">
         <h2 className="HomeBody__top6-Header">Popular Pokemon</h2>

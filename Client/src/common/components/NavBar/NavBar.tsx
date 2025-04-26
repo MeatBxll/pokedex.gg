@@ -6,6 +6,7 @@ import { MdDarkMode } from "react-icons/md";
 import { FaSun } from "react-icons/fa6";
 import { SubHeaderButton } from "./componenets/SubHeaderButton/SubHeaderButton";
 import { CgPokemon } from "react-icons/cg";
+import { SearchBar } from "../SearchBar/SearchBar";
 
 interface NavBarProps {
   currentPage: PageTypes;
@@ -43,6 +44,11 @@ export const NavBar = (props: NavBarProps) => {
         </div>
 
         <div className="homeHeader__main-Head-Right">
+          {currentPage != "HOME" ? (
+            <div className="homeHeader__main-heade-right-search">
+              <SearchBar FontSize="1rem" />
+            </div>
+          ) : null}
           <NavBarButton href="/contactUs" text="Contact Us" />
           <NavBarButton
             onClick={LightDarkMode}

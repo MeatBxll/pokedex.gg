@@ -23,6 +23,13 @@
 .homeHeader__main-Head-Right {
   display: flex;
   gap: 1rem;
+  align-items: center;
+}
+
+.homeHeader__main-heade-right-search {
+  width: 10rem;
+  background-color: #282830;
+  border-radius: 1rem;
 }
 
 .homeHeader__sub-Head-Content-Wrap {
