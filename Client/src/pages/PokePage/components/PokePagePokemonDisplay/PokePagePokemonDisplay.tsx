@@ -4,21 +4,28 @@ import { MdFlipCameraAndroid } from "react-icons/md";
 import { GiShinyIris } from "react-icons/gi";
 import { FaRegCircle } from "react-icons/fa";
 
-export const PokePagePokemonDisplay = () => {
+interface PokePagePokemonDisplayProps {
+  id: number;
+}
+
+export const PokePagePokemonDisplay = (props: PokePagePokemonDisplayProps) => {
+  const { id } = props;
   const baseUrlStart =
     "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown";
-  const [currentDisplay, setCurrentDisplay] = useState(baseUrlStart + "/6.gif");
+  const [currentDisplay, setCurrentDisplay] = useState(
+    baseUrlStart + `/${id}.gif`
+  );
 
   const [isFlipped, setIsFlipped] = useState(false);
   function isFlippedOnClick() {
     if (isFlipped) {
       setIsFlipped(false);
-      if (isShiny) setCurrentDisplay(baseUrlStart + "/shiny/6.gif");
-      else setCurrentDisplay(baseUrlStart + "/6.gif");
+      if (isShiny) setCurrentDisplay(baseUrlStart + `/shiny/${id}.gif`);
+      else setCurrentDisplay(baseUrlStart + `/${id}.gif`);
     } else {
       setIsFlipped(true);
-      if (isShiny) setCurrentDisplay(baseUrlStart + "/back/shiny/6.gif");
-      else setCurrentDisplay(baseUrlStart + "/back/6.gif");
+      if (isShiny) setCurrentDisplay(baseUrlStart + `/back/shiny/${id}.gif`);
+      else setCurrentDisplay(baseUrlStart + `/back/${id}.gif`);
     }
   }
 
@@ -27,18 +34,22 @@ export const PokePagePokemonDisplay = () => {
   function isShinyOnClick() {
     if (isShiny) {
       setIsShiny(false);
-      if (isFlipped) setCurrentDisplay(baseUrlStart + "/back/6.gif");
-      else setCurrentDisplay(baseUrlStart + "/6.gif");
+      if (isFlipped) setCurrentDisplay(baseUrlStart + `/back/${id}.gif`);
+      else setCurrentDisplay(baseUrlStart + `/${id}.gif`);
     } else {
       setIsShiny(true);
-      if (isFlipped) setCurrentDisplay(baseUrlStart + "/back/shiny/6.gif");
-      else setCurrentDisplay(baseUrlStart + "/shiny/6.gif");
+      if (isFlipped) setCurrentDisplay(baseUrlStart + `/back/shiny/${id}.gif`);
+      else setCurrentDisplay(baseUrlStart + `/shiny/${id}.gif`);
     }
   }
 
   return (
     <div>
-      <img className="pokePagePokemonDisplay__img" src={currentDisplay} />
+      <img
+        alt="Loading Pokemon Img"
+        className="pokePagePokemonDisplay__img"
+        src={currentDisplay}
+      />
       <div className="pokePagePokemonDisplay__button-wrap">
         <button
           className="pokePagePokemonDisplay__button"

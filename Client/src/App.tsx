@@ -13,7 +13,7 @@ function App() {
     <>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/pokePage" element={<PokePage />} />
+        <Route path="/pokePage/:_pokemonName" element={<PokePage />} />
         <Route path="/SignIn" element={<SignIn />} />
         <Route path="/contactUs" element={<ContactUsPage />} />
         <Route path="/allPokemon" element={<AllPokemon />} />

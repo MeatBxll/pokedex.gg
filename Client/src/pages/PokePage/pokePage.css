@@ -1,11 +1,66 @@
 .pokePage__wrap {
   width: 100%;
   user-select: none;
+  font-family: Arial, Helvetica, sans-serif;
+  color: aliceblue;
+  font-size: 1.3rem;
 }
 
 .pokePage__body {
   padding: 3%;
 }
+.pokePage__pokemon-name {
+  color: aliceblue;
+  font-size: 2rem;
+  text-transform: capitalize;
+}
 
-.pokePage__pokemon-img {
+.pokePage_pokemon-header-wrap {
+  display: flex;
+  gap: 10rem;
+  color: aliceblue;
+  margin-bottom: 5rem;
+}
+
+.pokePage_pokemon-header-middle {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.pokePage_pokemon-header-starting-ablilities {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.pokePage_pokemon-header-stats-wrap {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-transform: capitalize;
+  color: aliceblue;
+  font-size: 1.3rem;
+  width: 50rem;
+}
+
+.pokePage_pokemon-header-lists {
+  text-decoration: none;
+  list-style: none;
+}
+
+.pokePage__games-featured {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 2rem;
+  background-color: #282830;
+  border-radius: 2rem;
+  margin-bottom: 3rem;
+}
+
+.pokePage__games-featured-games {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
 }

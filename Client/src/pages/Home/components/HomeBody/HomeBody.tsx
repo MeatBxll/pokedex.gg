@@ -12,7 +12,7 @@ export const HomeBody = () => {
           className="HomeBody__searchImg"
           src="https://www.pngplay.com/wp-content/uploads/11/Heliolisk-Pokemon-PNG-HD-Quality.png"
         />
-        <div className="HomeBody__search"></div>
+        <div className="HomeBody__search"> </div>
       </section>
       <section className="HomeBody__top6-Wrap">
         <h2 className="HomeBody__top6-Header">Popular Pokemon</h2>
@@ -21,32 +21,32 @@ export const HomeBody = () => {
           <Top6PokeCard
             img="https://www.pngplay.com/wp-content/uploads/10/Charizard-Pokemon-Free-PNG.png"
             type="FIRE"
-            name="Charzard"
+            name="charizard"
           />
           <Top6PokeCard
             img="https://www.pngplay.com/wp-content/uploads/11/Pikachu-Pokemon-PNG-HD-Images.png"
             type="ELECTRIC"
-            name="Pikachu"
+            name="pikachu"
           />
           <Top6PokeCard
             img="https://www.pokemon.com/static-assets/content-assets/cms2/img/pokedex/full/001.png"
             type="GRASS"
-            name="Bulbasaur"
+            name="bulbasaur"
           />
           <Top6PokeCard
             img="https://www.pngplay.com/wp-content/uploads/11/Gengar-PNG-Photos.png"
             type="POISON"
-            name="Gengar"
+            name="gengar"
           />
           <Top6PokeCard
             img="https://www.pngplay.com/wp-content/uploads/11/Gardevoir-PNG-Photos.png"
             type="PSYCHIC"
-            name="Gardevoir"
+            name="gardevoir"
           />
           <Top6PokeCard
             img="https://www.pngplay.com/wp-content/uploads/12/Snorlax-Pokemon-Transparent-Images.png"
             type="NORMAL"
-            name="Snorlax"
+            name="snorlax"
           />
         </div>
       </section>

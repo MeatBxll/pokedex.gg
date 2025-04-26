@@ -2,13 +2,38 @@ import { pokemonApi } from "../pokemonApi";
 
 export const pokemonApiEndpoints = pokemonApi.injectEndpoints({
   endpoints: (builder) => ({
-    getOnePokemon: builder.query<any, any>({
-      query: (pokemonName: String) => ({
-        url: `/pokemon/${pokemonName}`,
-        method: "GET",
-      }),
+    getAllPokemon: builder.query<
+      // 👇 Result type
+      {
+        count: number;
+        next: string | null;
+        previous: string | null;
+        results: { name: string; url: string }[];
+      },
+      // 👇 Argument type
+      { limit?: number; offset?: number }
+    >({
+      query: ({ limit = 100, offset = 0 }) =>
+        `pokemon?limit=${limit}&offset=${offset}`,
+    }),
+    getPokemonByName: builder.query<
+      {
+        name: string;
+        id: number;
+        stats: { base_stat: number; stat: { name: string } }[];
+        types: { type: { name: string } }[];
+        abilities: { ability: { name: string } }[];
+        game_indices: { version: { name: string } }[];
+        moves: { move: { name: string } }[];
+      },
+      string // name or ID
+    >({
+      query: (name) => `pokemon/${name}`,
     }),
   }),
+
+  overrideExisting: false,
 });
 
-export const { useGetOnePokemonQuery } = pokemonApiEndpoints;
+export const { useGetAllPokemonQuery, useGetPokemonByNameQuery } =
+  pokemonApiEndpoints;
