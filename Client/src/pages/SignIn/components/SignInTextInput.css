@@ -1,0 +1,11 @@
+.signIn__TextInput {
+  background-color: #4151cc34;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1.2rem;
+  padding: 0.5rem;
+  border: none;
+  outline: none;
+  color: aliceblue;
+  border-radius: 0.3rem;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}
