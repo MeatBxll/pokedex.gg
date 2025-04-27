@@ -1,15 +1,79 @@
 import { NavBar } from "../../common/components/NavBar/NavBar";
 import { PokePagePokemonDisplay } from "./components/PokePagePokemonDisplay/PokePagePokemonDisplay";
-import { useGetPokemonByNameQuery } from "../../api/pokemon/pokemonApiEndpoints";
+import {
+  useGetPokemonByNameQuery,
+  useGetPokemonSpeciesQuery,
+  useGetEvolutionChainQuery,
+} from "../../api/pokemon/pokemonApiEndpoints";
 import "./pokePage.css";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { PokePageTypeColors } from "./components/PokePageTypeColors/PokePageTypeColors";
 
+interface EvolutionChainNode {
+  species: { name: string };
+  evolves_to: EvolutionChainNode[];
+}
+
+import { FaArrowRight } from "react-icons/fa6";
+
+interface EvolutionChainProps {
+  chain: EvolutionChainNode | null;
+}
+
+const EvolutionChainLine = ({ chain }: EvolutionChainProps) => {
+  if (!chain) return null;
+
+  const traverseChain = (node: EvolutionChainNode): string[] => {
+    if (!node || !node.species) return [];
+
+    let names: string[] = [node.species.name];
+    if (node.evolves_to && node.evolves_to.length > 0) {
+      for (let evo of node.evolves_to) {
+        names = names.concat(traverseChain(evo));
+      }
+    }
+    return names;
+  };
+
+  const evolutionNames = traverseChain(chain);
+
+  if (evolutionNames.length === 0) return <div>No evolutions found.</div>;
+
+  return (
+    <div style={{ fontSize: "1.5rem", color: "white", marginTop: "1rem" }}>
+      {evolutionNames.map((name, idx) => (
+        <Link
+          to={`/pokePage/${name}`}
+          className="evolutionChainLine__link"
+          key={name}
+        >
+          {name.charAt(0).toUpperCase() + name.slice(1)}
+          {idx < evolutionNames.length - 1 && <FaArrowRight />}
+        </Link>
+      ))}
+    </div>
+  );
+};
 export const PokePage = () => {
   const { _pokemonName } = useParams();
   const { data, isLoading, error } = useGetPokemonByNameQuery(
     _pokemonName ? _pokemonName : " "
   );
+
+  const { data: speciesData, isLoading: speciesLoading } =
+    useGetPokemonSpeciesQuery(_pokemonName);
+
+  const evolutionChainId = speciesData?.evolution_chain?.url
+    .split("/")
+    .filter(Boolean)
+    .pop();
+
+  const { data: evolutionData, isLoading: evolutionLoading } =
+    useGetEvolutionChainQuery(evolutionChainId, {
+      skip: !evolutionChainId, // Skip fetching until we have the ID
+    });
+
+  if (speciesLoading || evolutionLoading) return <div>Loading...</div>;
 
   function getColorByType(type: string): string | undefined {
     const match = PokePageTypeColors.find((t) => t.type === type);
@@ -27,7 +91,7 @@ export const PokePage = () => {
       <article className="pokePage__body">
         <h2 className="pokePage__pokemon-name">{data.name}</h2>
         <div className="pokePage_pokemon-header-wrap">
-          <PokePagePokemonDisplay id={data.id} />
+          <PokePagePokemonDisplay key={_pokemonName} id={data.id} />
           <div className="pokePage_pokemon-header-middle">
             <div
               style={{
@@ -75,6 +139,13 @@ export const PokePage = () => {
                 ))}
               </div>
             </div>
+
+            {evolutionData && (
+              <div>
+                <h3 style={{ color: "white" }}>Evolution Chain:</h3>
+                <EvolutionChainLine chain={evolutionData.chain} />
+              </div>
+            )}
           </div>
 
           <ul className="pokePage_pokemon-header-lists pokePage_pokemon-header-stats-wrap">

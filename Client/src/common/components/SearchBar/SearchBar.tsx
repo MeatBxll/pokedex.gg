@@ -43,6 +43,7 @@ export const SearchBar = (props: SearchBarProps) => {
                   to={`/pokePage/${p.name}`}
                   className="searchBar__search-result"
                   key={p.name}
+                  onClick={() => setSearch("")}
                 >
                   {p.name}
                 </Link>
