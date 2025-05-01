@@ -91,7 +91,10 @@ export const PokePage = () => {
       <article className="pokePage__body">
         <h2 className="pokePage__pokemon-name">{data.name}</h2>
         <div className="pokePage_pokemon-header-wrap">
-          <PokePagePokemonDisplay key={_pokemonName} id={data.id} />
+          <PokePagePokemonDisplay
+            key={_pokemonName}
+            id={data.id}
+          />
           <div className="pokePage_pokemon-header-middle">
             <div
               style={{

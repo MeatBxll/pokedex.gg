@@ -4,6 +4,7 @@
   border-radius: 1rem;
   background-color: #282830;
   user-select: none;
+  height: fit-content;
 }
 
 .buildTeamOptions__options-header {
@@ -45,7 +46,7 @@
 }
 
 .buildTeamOptions__options-suboption-wrap {
-  background-color: #464653a2;
+  background-color: #464653;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -60,6 +61,7 @@
   position: absolute;
   transform: translate(0, 5rem);
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+  z-index: 2;
 }
 
 .buildTeamOptions__options-suboption-button {
@@ -77,4 +79,37 @@
 .buildTeamOptions__options-suboption-button:hover {
   box-shadow: rgba(100, 100, 111, 0.363) 0px 7px 29px 0px;
   filter: brightness(120%);
+}
+
+.buildTeamOptions__pokemon-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  padding: 1rem;
+  height: 12rem;
+  width: 100%;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+  max-height: 300px; /* set your desired height */
+  overflow-y: auto;
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0px,
+    black 30px,
+    black calc(100% - 30px),
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0px,
+    black 30px,
+    black calc(100% - 30px),
+    transparent 100%
+  );
+}
+
+.buildTeamOptions__pokemon-wrap::-webkit-scrollbar {
+  display: none;
 }

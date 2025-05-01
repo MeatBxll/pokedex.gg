@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./BuildTeamOption.css";
 import { buildTeamOptionsDropDown } from "./BuildTeamOptionsDropDown/BuildTeamOptionsDropDown";
 import { PokePageTypeColors } from "../../../PokePage/components/PokePageTypeColors/PokePageTypeColors";
+import { BuildTeamOptionsPokemonSingle } from "./BuildTeamOptionsPokemonSingle/BuildTeamOptionsPokemonSingle";
+import { useGetAllPokemonQuery } from "../../../../api/pokemon/pokemonApiEndpoints";
 
 export const BuildTeamOptions = () => {
   const optionsData = buildTeamOptionsDropDown;
@@ -10,6 +12,18 @@ export const BuildTeamOptions = () => {
     const match = PokePageTypeColors.find((t) => t.type === type);
     return match?.color;
   }
+
+  const limit = 1025;
+  const offset = 0;
+
+  const { data, isLoading, error } = useGetAllPokemonQuery({ limit, offset });
+
+  const getPokemonIdFromUrl = (url: string): string => {
+    const parts = url.split("/");
+    return parts[parts.length - 2]; // the ID is before the last slash
+  };
+
+  useEffect(() => {}, []);
 
   return (
     <div className="buildTeamOptions__wrap">
@@ -58,9 +72,28 @@ export const BuildTeamOptions = () => {
           })}
         </div>
 
-        <div></div>
+        <div className="buildTeamOptions__pokemon-wrap">
+          {data?.results.map((pokemon, index) => {
+            const id = getPokemonIdFromUrl(pokemon.url);
+            const imageUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`;
+
+            return (
+              <BuildTeamOptionsPokemonSingle
+                key={index}
+                img={
+                  <img
+                    src={imageUrl}
+                    alt={pokemon.name}
+                    width={70}
+                    height={70}
+                  />
+                }
+                name={pokemon.name}
+              />
+            );
+          })}
+        </div>
       </div>
-      <div className="buildTeamOptions__pokemon"></div>
     </div>
   );
 };

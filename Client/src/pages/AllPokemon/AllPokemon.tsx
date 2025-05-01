@@ -34,7 +34,7 @@ export const AllPokemon = () => {
 
           return (
             <AllPokemonSingle
-              key={index}
+              key={pokemon.name}
               pokeImg={
                 <img
                   src={imageUrl}
