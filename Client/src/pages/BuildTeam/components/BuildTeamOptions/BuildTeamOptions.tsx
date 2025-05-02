@@ -2,8 +2,7 @@ import { useEffect, useState } from "react";
 import "./BuildTeamOption.css";
 import { buildTeamOptionsDropDown } from "./BuildTeamOptionsDropDown/BuildTeamOptionsDropDown";
 import { PokePageTypeColors } from "../../../PokePage/components/PokePageTypeColors/PokePageTypeColors";
-import { BuildTeamOptionsPokemonSingle } from "./BuildTeamOptionsPokemonSingle/BuildTeamOptionsPokemonSingle";
-import { useGetAllPokemonQuery } from "../../../../api/pokemon/pokemonApiEndpoints";
+import { BuildTeamOptionsAllPoke } from "./BuildTeamOptionAllPoke/BuildTeamOptionsAllPoke";
 
 export const BuildTeamOptions = () => {
   const optionsData = buildTeamOptionsDropDown;
@@ -12,16 +11,11 @@ export const BuildTeamOptions = () => {
     const match = PokePageTypeColors.find((t) => t.type === type);
     return match?.color;
   }
+  const [isSelected, setIsSelected] = useState(false);
 
-  const limit = 1025;
-  const offset = 0;
+  const [typesToRender, setTypesToRender] = useState(optionsData[0].options);
 
-  const { data, isLoading, error } = useGetAllPokemonQuery({ limit, offset });
-
-  const getPokemonIdFromUrl = (url: string): string => {
-    const parts = url.split("/");
-    return parts[parts.length - 2]; // the ID is before the last slash
-  };
+  const [search, setSearch] = useState("");
 
   useEffect(() => {}, []);
 
@@ -31,67 +25,91 @@ export const BuildTeamOptions = () => {
         <h3 className="buildTeamOptions__options-header">Options</h3>
 
         <div className="buildTeamOptions__options-options">
-          {optionsData.map((option, index) => {
-            const [isSelected, setIsSelected] = useState(false);
-
-            return (
-              <div className="buildTeamOptions-option-wrap">
-                <button
-                  onClick={() => setIsSelected(!isSelected)}
-                  className="buildTeamOptions__options-option"
-                  key={index}
-                >
-                  {option.label}
-                </button>
-                <div
-                  className="buildTeamOptions__options-suboption-wrap"
-                  style={!isSelected ? { display: "none" } : {}}
-                >
-                  {option.label === "Type"
-                    ? option.options.map((subOption, index) => (
-                        <button
-                          className="buildTeamOptions__options-suboption-button"
-                          style={{ backgroundColor: getColorByType(subOption) }}
-                          key={index}
-                        >
-                          {subOption}
-                        </button>
-                      ))
-                    : option.options.map((subOption, index) => (
-                        <button
-                          style={{ backgroundColor: "#4152CC" }}
-                          className="buildTeamOptions__options-suboption-button"
-                          key={index}
-                        >
-                          {subOption}
-                        </button>
-                      ))}
+          <div className="buildTeamOptions__options-search-wrap">
+            <input
+              type="text"
+              placeholder="Search Pokemon..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              className="buildTeamOptions__options-search"
+            />
+          </div>
+          <div>
+            {optionsData.map((option, index) => {
+              return (
+                <div className="buildTeamOptions-option-wrap">
+                  <button
+                    onClick={() => setIsSelected(!isSelected)}
+                    className="buildTeamOptions__options-option"
+                    key={index}
+                  >
+                    {option.label}
+                  </button>
+                  <div
+                    className="buildTeamOptions__options-suboption-wrap"
+                    style={!isSelected ? { display: "none" } : {}}
+                  >
+                    {option.label === "Type"
+                      ? option.options.map((subOption, index) => {
+                          return (
+                            <button
+                              className="buildTeamOptions__options-suboption-button"
+                              style={
+                                typesToRender.includes(subOption)
+                                  ? {
+                                      backgroundColor:
+                                        getColorByType(subOption),
+                                    }
+                                  : { backgroundColor: "#272e5e" }
+                              }
+                              onClick={
+                                typesToRender.includes(subOption)
+                                  ? () =>
+                                      setTypesToRender(
+                                        typesToRender.filter(
+                                          (item) => item !== subOption
+                                        )
+                                      )
+                                  : () =>
+                                      setTypesToRender((prevItems) => [
+                                        ...prevItems,
+                                        subOption,
+                                      ])
+                              }
+                              key={index}
+                            >
+                              {subOption}
+                            </button>
+                          );
+                        })
+                      : option.options.map((subOption, index) => (
+                          <button
+                            style={{ backgroundColor: "#4152CC" }}
+                            className="buildTeamOptions__options-suboption-button"
+                            key={index}
+                          >
+                            {subOption}
+                          </button>
+                        ))}
+                  </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
         </div>
 
         <div className="buildTeamOptions__pokemon-wrap">
-          {data?.results.map((pokemon, index) => {
-            const id = getPokemonIdFromUrl(pokemon.url);
-            const imageUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`;
-
-            return (
-              <BuildTeamOptionsPokemonSingle
-                key={index}
-                img={
-                  <img
-                    src={imageUrl}
-                    alt={pokemon.name}
-                    width={70}
-                    height={70}
-                  />
-                }
-                name={pokemon.name}
+          {optionsData[0].options.map((type) => (
+            <div
+              style={typesToRender.includes(type) ? {} : { display: "none" }}
+            >
+              <BuildTeamOptionsAllPoke
+                searchInput={search}
+                key={type}
+                type={type}
               />
-            );
-          })}
+            </div>
+          ))}
         </div>
       </div>
     </div>

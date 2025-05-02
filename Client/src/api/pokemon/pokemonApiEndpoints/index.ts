@@ -36,6 +36,10 @@ export const pokemonApiEndpoints = pokemonApi.injectEndpoints({
     getEvolutionChain: builder.query({
       query: (id) => `evolution-chain/${id}`,
     }),
+
+    getAllPokemonOfType: builder.query({
+      query: (type) => `type/${type}`,
+    }),
   }),
 
   overrideExisting: false,
@@ -46,4 +50,5 @@ export const {
   useGetPokemonByNameQuery,
   useGetPokemonSpeciesQuery,
   useGetEvolutionChainQuery,
+  useGetAllPokemonOfTypeQuery,
 } = pokemonApiEndpoints;

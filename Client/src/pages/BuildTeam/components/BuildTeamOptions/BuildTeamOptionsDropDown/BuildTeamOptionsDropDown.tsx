@@ -22,19 +22,4 @@ export const buildTeamOptionsDropDown = [
       "normal",
     ],
   },
-  { label: "Evolution", options: ["Fully Evolved", "Not Fully Evolved"] },
-  {
-    label: "Generation",
-    options: [
-      "Gen 1",
-      "Gen 2",
-      "Gen 3",
-      "Gen 4",
-      "Gen 5",
-      "Gen 6",
-      "Gen 7",
-      "Gen 8",
-      "Gen 9",
-    ],
-  },
 ];
