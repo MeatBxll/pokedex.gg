@@ -15,3 +15,10 @@ export interface RegisterErrors {
 }
 
 export type RegisterValidatorReturn = RegisterErrors | null;
+
+export interface LoginValidatorInput {
+  email: string;
+  password: string;
+}
+
+export type LoginValidatorReturn = any | null;

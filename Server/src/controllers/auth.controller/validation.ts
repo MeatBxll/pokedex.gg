@@ -2,9 +2,12 @@ import {
   RegisterValidatorInput,
   RegisterErrors,
   RegisterValidatorReturn,
+  LoginValidatorInput,
+  LoginValidatorReturn
 } from "./types";
 import emailValidator from "../../functions/emailValidator";
 import { PrismaClient } from "@prisma/client";
+import bcrypt from "bcryptjs";
 
 const prisma = new PrismaClient();
 
@@ -52,4 +55,21 @@ export const registerValidator = async (
   if (Object.keys(errors.errors).length > 0) return errors;
 
   return null;
+};
+
+export const loginValidator = async (
+  data: LoginValidatorInput
+): Promise<LoginValidatorReturn> => {
+  const { email, password } = data;
+
+  const foundUser = await prisma.user.findUnique({
+    where: {
+      email: email,
+    },
+  });
+
+  if (!foundUser || !(await bcrypt.compare(password, foundUser.password)))
+    return null;
+
+  return foundUser;
 };
