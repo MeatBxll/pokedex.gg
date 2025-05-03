@@ -4,11 +4,13 @@ import { BuildTeamOptionsPokemonSingle } from "../BuildTeamOptionsPokemonSingle/
 interface PokemonListByTypeProps {
   type: string;
   searchInput: string;
+  handleDataTransfer: any;
 }
 
 export const BuildTeamOptionsAllPoke = ({
   type,
   searchInput,
+  handleDataTransfer,
 }: PokemonListByTypeProps) => {
   const { data, isLoading, error } = useGetAllPokemonOfTypeQuery(type);
 
@@ -53,6 +55,7 @@ export const BuildTeamOptionsAllPoke = ({
           key={p.pokemon.name}
           name={p.pokemon.name}
           url={p.pokemon.url}
+          handleDataTransfer={handleDataTransfer}
         />
       ))}
     </div>

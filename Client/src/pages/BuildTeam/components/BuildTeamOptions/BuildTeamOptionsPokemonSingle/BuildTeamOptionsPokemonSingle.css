@@ -11,4 +11,36 @@
   font-family: Arial, Helvetica, sans-serif;
   text-transform: capitalize;
   font-size: medium;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  cursor: grab;
+}
+
+.bTOPS__wrap:hover {
+  background-color: #595969;
+}
+
+.bTOPS__wrap:active {
+  cursor: grabbing;
+}
+
+.BTOAPS__details {
+  background-color: #3947af;
+  border: none;
+  padding: 0.3rem;
+  border-radius: 1rem;
+  color: aliceblue;
+  font-family: Arial, Helvetica, sans-serif;
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+  text-decoration: none;
+  text-align: center;
+  position: absolute;
+  transform: translate(0, 2rem);
+  font-size: 0.8rem;
+}
+
+.BTOAPS__details:hover {
+  background-color: #4152cc;
 }
