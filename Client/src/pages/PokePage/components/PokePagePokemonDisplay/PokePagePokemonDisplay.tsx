@@ -3,6 +3,7 @@ import "./pokePagePokemonDisplay.css";
 import { MdFlipCameraAndroid } from "react-icons/md";
 import { GiShinyIris } from "react-icons/gi";
 import { FaRegCircle } from "react-icons/fa";
+import { useEffect } from "react";
 
 interface PokePagePokemonDisplayProps {
   id: number;
@@ -15,6 +16,10 @@ export const PokePagePokemonDisplay = (props: PokePagePokemonDisplayProps) => {
   const [currentDisplay, setCurrentDisplay] = useState(
     baseUrlStart + `/${id}.gif`
   );
+
+  useEffect(() => {
+    setCurrentDisplay(baseUrlStart + `/${id}.gif`);
+  }, [id]);
 
   const [isFlipped, setIsFlipped] = useState(false);
   function isFlippedOnClick() {

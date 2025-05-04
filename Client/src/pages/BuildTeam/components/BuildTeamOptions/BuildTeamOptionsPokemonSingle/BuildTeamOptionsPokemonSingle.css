@@ -1,2 +1,44 @@
 .bTOPS__wrap {
+  background-color: #464653;
+  border-radius: 1rem;
+  outline: none;
+  border: none;
+  width: 8rem;
+  padding: 0.5rem;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
+    rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+  color: aliceblue;
+  font-family: Arial, Helvetica, sans-serif;
+  text-transform: capitalize;
+  font-size: medium;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  cursor: grab;
+}
+
+.bTOPS__wrap:hover {
+  background-color: #595969;
+}
+
+.bTOPS__wrap:active {
+  cursor: grabbing;
+}
+
+.BTOAPS__details {
+  background-color: #3947af;
+  border: none;
+  padding: 0.3rem;
+  border-radius: 1rem;
+  color: aliceblue;
+  font-family: Arial, Helvetica, sans-serif;
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+  text-decoration: none;
+  text-align: center;
+  font-size: 0.8rem;
+}
+
+.BTOAPS__details:hover {
+  background-color: #4152cc;
 }
