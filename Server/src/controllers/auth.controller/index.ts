@@ -19,6 +19,7 @@ export const register = async (req: Request, res: Response): Promise<any> => {
       email,
       password: hashedPassword,
       firstName: firstName,
+      about: "",
     };
 
     const newUser = await prisma.user.create({ data: newUserData });
@@ -39,6 +40,7 @@ export const register = async (req: Request, res: Response): Promise<any> => {
         firstName: true,
         teams: true,
         favoritePokemon: true,
+        about: true,
       },
     });
 
@@ -80,6 +82,7 @@ export const login = async (req: Request, res: Response): Promise<any> => {
         firstName: true,
         teams: true,
         favoritePokemon: true,
+        about: true,
       },
     });
 

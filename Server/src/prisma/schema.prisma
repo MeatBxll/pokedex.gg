@@ -15,10 +15,11 @@ model User {
   email        String   @unique
   password     String   @db.VarChar(60)
   firstName    String   @db.VarChar(255)
+  about        String   @db.VarChar(255)
   refreshToken String?
 
   teams           Team[]
-  favoritePokemon pokemonUserFavorite[]
+  favoritePokemon Pokemon[]
 
   @@map("users")
 }
@@ -33,41 +34,16 @@ model Team {
   User   User   @relation(fields: [userId], references: [id])
   userId String
 
-  pokemon PokemonInTeam[]
+  pokemon Pokemon[]
 
   @@map("teams")
 }
 
 model Pokemon {
-  id        String   @id @default(uuid())
-  pokemonId String   @db.VarChar(255)
+  id        String   @id @unique
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  teams         PokemonInTeam[]
-  usersFavorite pokemonUserFavorite[]
-}
-
-model PokemonInTeam {
-  team      Team     @relation(fields: [teamId], references: [id])
-  teamId    String
-  pokemon   Pokemon  @relation(fields: [pokemonId], references: [id])
-  pokemonId String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@id([teamId, pokemonId])
-  @@map("pokemonInTeams")
-}
-
-model pokemonUserFavorite {
-  user      User     @relation(fields: [userId], references: [id])
-  userId    String
-  pokemon   Pokemon  @relation(fields: [pokemonId], references: [id])
-  pokemonId String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@id([userId, pokemonId])
-  @@map("pokemonUserFavorite")
+  teams     Team[]
+  favoredBy User[]
 }
