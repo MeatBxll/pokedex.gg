@@ -7,6 +7,7 @@ import { FaSun } from "react-icons/fa6";
 import { SubHeaderButton } from "./componenets/SubHeaderButton/SubHeaderButton";
 import { CgPokemon } from "react-icons/cg";
 import { SearchBar } from "../SearchBar/SearchBar";
+import { SavedPokemon } from "./SavedPokemon/SavedPokemon";
 
 interface NavBarProps {
   currentPage: PageTypes;
@@ -44,6 +45,9 @@ export const NavBar = (props: NavBarProps) => {
         </div>
 
         <div className="homeHeader__main-Head-Right">
+          <div>
+            <SavedPokemon isBuildTeamPage={currentPage === "BUILDTEAM"} />
+          </div>
           {currentPage != "HOME" ? (
             <div className="homeHeader__main-heade-right-search">
               <SearchBar FontSize="1rem" />
