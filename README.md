@@ -43,7 +43,7 @@ Finally a page to display your teams and give a short about you section so users
 
 ## Technologies Used
 
-**Client:** React, Redux, Restful APIs, Front-end Development, 
+**Client:** React, Redux Toolkit, RTK Query, Pokemon API, Front-end Development, Typescript, CSS, React Router, Front-End Web Design
 
 **Server:** Node, Express, 
 
