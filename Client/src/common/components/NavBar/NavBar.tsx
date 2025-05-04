@@ -81,7 +81,7 @@ export const NavBar = (props: NavBarProps) => {
               isCurrentPage={currentPage === "YOURTEAM"}
               icon={<CgPokemon />}
               text="Your Team"
-              href="/buildTeam"
+              href="/yourTeam"
             />
           </div>
         </div>

@@ -7,6 +7,7 @@ import { SignIn } from "./pages/SignIn/SignIn";
 import { ContactUsPage } from "./pages/ContactPage/ContactPage";
 import { AllPokemon } from "./pages/AllPokemon/AllPokemon";
 import { BuildTeam } from "./pages/BuildTeam/BuildTeam";
+import { YourTeam } from "./pages/YourTeam/YourTeam";
 
 function App() {
   return (
@@ -18,6 +19,8 @@ function App() {
         <Route path="/contactUs" element={<ContactUsPage />} />
         <Route path="/allPokemon" element={<AllPokemon />} />
         <Route path="/buildTeam" element={<BuildTeam />} />
+        <Route path="/buildTeam" element={<BuildTeam />} />
+        <Route path="/yourTeam" element={<YourTeam />} />
       </Routes>
     </>
   );
