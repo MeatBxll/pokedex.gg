@@ -1,0 +1,49 @@
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id           String   @id @default(uuid())
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  username     String   @db.VarChar(255)
+  email        String   @unique
+  password     String   @db.VarChar(60)
+  firstName    String   @db.VarChar(255)
+  about        String   @db.VarChar(255)
+  refreshToken String?
+
+  teams           Team[]
+  favoritePokemon Pokemon[]
+
+  @@map("users")
+}
+
+model Team {
+  id         String   @id @default(uuid())
+  name       String   @db.VarChar(255)
+  isFavorite Boolean  @default(false)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  User   User   @relation(fields: [userId], references: [id])
+  userId String
+
+  pokemon Pokemon[]
+
+  @@map("teams")
+}
+
+model Pokemon {
+  id        Int      @id @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  teams     Team[]
+  favoredBy User[]
+}
