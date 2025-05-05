@@ -5,10 +5,10 @@ import cors from "cors";
 import dotenv from "dotenv";
 import authRoutes from "./routes/auth.routes";
 import teamRoutes from "./routes/team.routes";
+import userRoutes from "./routes/user.routes";
 
 const app: Application = express();
 const PORT: Number = 8000;
-
 
 dotenv.config();
 app.use(cookieParser());
@@ -18,5 +18,6 @@ app.use(cors(corsOptions));
 
 authRoutes(app);
 teamRoutes(app);
+userRoutes(app);
 
 app.listen(PORT, () => console.log(`Listening on port: ${PORT}`));
