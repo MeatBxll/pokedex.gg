@@ -8,13 +8,14 @@ import {
 import "./pokePage.css";
 import { Link, useParams } from "react-router-dom";
 import { PokePageTypeColors } from "./components/PokePageTypeColors/PokePageTypeColors";
-
+import { motion } from "framer-motion";
 interface EvolutionChainNode {
   species: { name: string };
   evolves_to: EvolutionChainNode[];
 }
 
 import { FaArrowRight } from "react-icons/fa6";
+import { useEffect, useState } from "react";
 
 interface EvolutionChainProps {
   chain: EvolutionChainNode | null;
@@ -84,6 +85,22 @@ export const PokePage = () => {
   if (error || !data)
     return <div>Could not fetch details for {_pokemonName}</div>;
 
+  const [isVisible, setIsVisible] = useState(false);
+
+  const handleClick = () => {
+    setIsVisible(true);
+  };
+
+  useEffect(() => {
+    if (isVisible) {
+      const timer = setTimeout(() => {
+        setIsVisible(false);
+      }, 1000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [isVisible]);
+
   return (
     <div className="pokePage__wrap">
       <NavBar currentPage="NONEOFTHESE" />
@@ -91,10 +108,20 @@ export const PokePage = () => {
       <article className="pokePage__body">
         <h2 className="pokePage__pokemon-name">{data.name}</h2>
         <div className="pokePage_pokemon-header-wrap">
-          <PokePagePokemonDisplay
-            key={_pokemonName}
-            id={data.id}
-          />
+          <div className="pokePage_pokemon-header-display">
+            <PokePagePokemonDisplay key={_pokemonName} id={data.id} />
+            <button
+              onClick={handleClick}
+              className="pokePage_pokemon-header-display-button"
+            >
+              Add To Saved
+            </button>
+            {isVisible && (
+              <div className="pokePage_pokemon-header-display-saved">
+                Saved !
+              </div>
+            )}
+          </div>
           <div className="pokePage_pokemon-header-middle">
             <div
               style={{
