@@ -2,9 +2,35 @@ import { useState } from "react";
 import { SignInTextInput } from "./components/SignInTextInput";
 import "./SignIn.css";
 import { Link } from "react-router-dom";
+import { useRegisterMutation } from "../../api/backend/authApiEndpoints";
 
 export const SignIn = () => {
   const [isOnLogin, setIsOnLogin] = useState(true);
+
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [firtName, setFirtName] = useState("");
+
+  const [checkUsername, setCheckUsername] = useState("");
+  const [checkPassword, setCheckPassword] = useState("");
+
+  const [passwordsDoNotMatch, setPasswordsDoNotMatch] = useState(false);
+
+  function Register() {
+    if (password === confirmPassword) {
+      setPasswordsDoNotMatch(true);
+      return;
+    }
+    const registerData = {
+      firtName,
+      username,
+      email,
+      password,
+    };
+    useRegisterMutation();
+  }
 
   return (
     <div className="signIn__wrap">
@@ -36,8 +62,16 @@ export const SignIn = () => {
           className="signIn__body-content"
           style={isOnLogin ? {} : { display: "none" }}
         >
-          <SignInTextInput placeHolder="Username" />
-          <SignInTextInput placeHolder="Password" />
+          <SignInTextInput
+            value={checkUsername}
+            onValueChanged={setCheckUsername}
+            placeHolder="Username"
+          />
+          <SignInTextInput
+            value={checkPassword}
+            onValueChanged={setCheckPassword}
+            placeHolder="Password"
+          />
           <button className="signIn__footer-buttons">Sign In</button>
           <img
             className="signIn__img1"
@@ -54,11 +88,34 @@ export const SignIn = () => {
             src="https://www.pngplay.com/wp-content/uploads/11/Gengar-Free-PNG.png"
             alt="img"
           />
-          <SignInTextInput placeHolder="FirstName" />
-          <SignInTextInput placeHolder="Email" />
-          <SignInTextInput placeHolder="Password" />
-          <SignInTextInput placeHolder="Confirm Password" />
-          <button className="signIn__footer-buttons">Sign Up !</button>
+          <SignInTextInput
+            value={firtName}
+            onValueChanged={setFirtName}
+            placeHolder="First Name"
+          />
+          <SignInTextInput
+            value={username}
+            onValueChanged={setUsername}
+            placeHolder="User Name"
+          />
+          <SignInTextInput
+            value={email}
+            onValueChanged={setEmail}
+            placeHolder="Email"
+          />
+          <SignInTextInput
+            value={password}
+            onValueChanged={setPassword}
+            placeHolder="Password"
+          />
+          <SignInTextInput
+            value={confirmPassword}
+            onValueChanged={setConfirmPassword}
+            placeHolder="Confirm Password"
+          />
+          <button onClick={Register} className="signIn__footer-buttons">
+            Sign Up !
+          </button>
         </div>
       </div>
 
