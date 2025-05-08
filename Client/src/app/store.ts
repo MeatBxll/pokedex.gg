@@ -10,7 +10,9 @@ export const store = configureStore({
     user: userReducer,
   },
   middleware: (getDefaultMiddleWare) =>
-    getDefaultMiddleWare().concat(pokemonApi.middleware),
+    getDefaultMiddleWare()
+      .concat(pokemonApi.middleware)
+      .concat(backendApi.middleware),
 });
 
 export type RootState = ReturnType<typeof store.getState>;

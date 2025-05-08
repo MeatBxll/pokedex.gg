@@ -18,18 +18,28 @@ export const SignIn = () => {
 
   const [passwordsDoNotMatch, setPasswordsDoNotMatch] = useState(false);
 
-  function Register() {
-    if (password === confirmPassword) {
+  const [register] = useRegisterMutation();
+
+  async function Register(e: any) {
+    e.preventDefault();
+    if (password !== confirmPassword) {
       setPasswordsDoNotMatch(true);
       return;
     }
+
     const registerData = {
       firtName,
       username,
       email,
       password,
     };
-    useRegisterMutation();
+
+    try {
+      const res = await register(registerData).unwrap();
+      console.log(res);
+    } catch (err: any) {
+      console.log(err.data);
+    }
   }
 
   return (
