@@ -4,7 +4,7 @@ export const authApiEndpoints = backendApi.injectEndpoints({
   endpoints: (builder) => ({
     register: builder.mutation<any, any>({
       query: (data: any) => ({
-        URL: "/auth/register",
+        url: "/auth/register",
         method: "POST",
         body: {
           ...data,
