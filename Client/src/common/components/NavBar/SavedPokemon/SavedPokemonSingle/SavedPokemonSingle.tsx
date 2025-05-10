@@ -1,17 +1,20 @@
 import "./SavedPokemonSingle.css";
 import { useGetPokemonByNameQuery } from "../../../../../api/pokemon/pokemonApiEndpoints";
-import { useAppSelector } from "../../../../../app/hooks";
+import { useAppSelector, useAppDispatch } from "../../../../../app/hooks";
 import { useRemoveFavoritePokemonMutation } from "../../../../../api/backend/userApiEndpoints";
 import { selectUserId } from "../../../../../app/userSlice";
+import { setFavoritePokemon } from "../../../../../app/userSlice";
 
 interface SavedPokemonSingleProps {
   id: string;
 }
 
 export const SavedPokemonSingle = (props: SavedPokemonSingleProps) => {
+  const { id } = props;
+  const dispatch = useAppDispatch();
   const [removeFavoritePokemon] = useRemoveFavoritePokemonMutation();
   const userId = useAppSelector(selectUserId);
-  const { id } = props;
+  
 
   async function removePokemonFromSaved(e: any) {
     e.preventDefault();
@@ -21,6 +24,7 @@ export const SavedPokemonSingle = (props: SavedPokemonSingleProps) => {
         pokemonId: Number(id),
       }).unwrap();
       console.log(res);
+      dispatch(setFavoritePokemon(res));
     } catch (err: any) {
       console.log(err.data);
     }

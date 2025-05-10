@@ -3,7 +3,7 @@ import { setCredentials, logout } from "../../app/userSlice";
 import { RootState } from "../../app/store";
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: "http://localhost:8000/api",
+  baseUrl: "http://localhost:5000/api",
   credentials: "include",
   prepareHeaders: (headers, { getState }) => {
     const token = (getState() as RootState).user.token;

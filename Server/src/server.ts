@@ -8,7 +8,7 @@ import teamRoutes from "./routes/team.routes";
 import userRoutes from "./routes/user.routes";
 
 const app: Application = express();
-const PORT: Number = 8000;
+const PORT: Number = 5000;
 
 dotenv.config();
 app.use(cookieParser());
