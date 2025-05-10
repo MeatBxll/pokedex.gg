@@ -2,6 +2,10 @@ import { useState } from "react";
 import "./SavedPokemon.css";
 import { motion } from "framer-motion";
 import { SavedPokemonSingle } from "./SavedPokemonSingle/SavedPokemonSingle";
+import { useAppSelector } from "../../../../app/hooks";
+import { selectFavoritePokemon } from "../../../../app/userSlice";
+import { useRemoveFavoritePokemonMutation } from "../../../../api/backend/userApiEndpoints";
+import { selectUserId } from "../../../../app/userSlice";
 
 interface SavedPokemonProps {
   isBuildTeamPage: boolean;
@@ -10,18 +14,9 @@ interface SavedPokemonProps {
 export const SavedPokemon = (props: SavedPokemonProps) => {
   const { isBuildTeamPage } = props;
   const [isOpen, setIsOpen] = useState(false);
-  const [allSavePokemon, setAllSavedPokemon] = useState([
-    "Dragonite",
-    "charizard",
-    "Koraidon",
-    "Donphan",
-    "Meowscarada",
-    "charizard",
-  ]);
 
-  const removePokemonFromSaved = (index: number) => {
-    setAllSavedPokemon((prev) => prev.filter((_, i) => i !== index));
-  };
+  const [removeFavoritePokemon] = useRemoveFavoritePokemonMutation();
+  const favoritePokemon = useAppSelector(selectFavoritePokemon);
 
   return (
     <div>
@@ -38,13 +33,8 @@ export const SavedPokemon = (props: SavedPokemonProps) => {
           transition={{ duration: 0.5 }}
           className="savedPokemon__toolbar"
         >
-          {allSavePokemon.map((n, index) => (
-            <SavedPokemonSingle
-              key={index}
-              isOnBuildTeamPage={isBuildTeamPage}
-              name={n}
-              onClick={() => removePokemonFromSaved(index)}
-            />
+          {favoritePokemon?.map((n: any, index) => (
+            <SavedPokemonSingle key={index} id={n.id} />
           ))}
         </motion.div>
       ) : null}

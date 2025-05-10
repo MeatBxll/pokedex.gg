@@ -11,9 +11,9 @@ export const userApiEndpoints = backendApi.injectEndpoints({
         },
       }),
     }),
-    signIn: builder.mutation<any, any>({
+    removeFavoritePokemon: builder.mutation<any, any>({
       query: (data: any) => ({
-        url: "/auth/login",
+        url: "/user/removeFavoritePokemon",
         method: "POST",
         body: {
           ...data,
@@ -23,5 +23,7 @@ export const userApiEndpoints = backendApi.injectEndpoints({
   }),
 });
 
-export const { useAddFavoritePokemonMutation, useSignInMutation } =
-  userApiEndpoints;
+export const {
+  useAddFavoritePokemonMutation,
+  useRemoveFavoritePokemonMutation,
+} = userApiEndpoints;

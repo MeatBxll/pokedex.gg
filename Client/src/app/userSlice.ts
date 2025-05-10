@@ -53,6 +53,9 @@ const userSlice = createSlice({
 export const { setCredentials, logout, setFavoritePokemon }: any =
   userSlice.actions;
 
+export const selectFavoritePokemon = (state: RootState) =>
+  state.user.favoritePokemon;
+
 export const selectUserId = (state: RootState) => state.user.id;
 
 export default userSlice.reducer;

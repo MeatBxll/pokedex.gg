@@ -13,7 +13,7 @@ const userRoutes = (app: Application) => {
     `${baseAuthUrl}/addFavoritePokemon`,
     /*verifyJWT,*/ addFavoritePokemon
   );
-  app.delete(
+  app.post(
     `${baseAuthUrl}/removeFavoritePokemon`,
     /*verifyJWT, */ removeFavoritePokemon
   );
