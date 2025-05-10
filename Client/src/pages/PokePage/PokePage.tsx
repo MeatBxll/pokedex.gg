@@ -6,56 +6,34 @@ import {
   useGetEvolutionChainQuery,
 } from "../../api/pokemon/pokemonApiEndpoints";
 import "./pokePage.css";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { PokePageTypeColors } from "./components/PokePageTypeColors/PokePageTypeColors";
-import { motion } from "framer-motion";
-interface EvolutionChainNode {
-  species: { name: string };
-  evolves_to: EvolutionChainNode[];
-}
-
-import { FaArrowRight } from "react-icons/fa6";
 import { useEffect, useState } from "react";
+import { EvolutionChainLine } from "./components/EvolutionChainLine/EvolutionChainLine";
+import { skipToken } from "@reduxjs/toolkit/query/react";
+import { useAddFavoritePokemonMutation } from "../../api/backend/userApiEndpoints";
+import { useAppSelector, useAppDispatch } from "../../app/hooks";
+import { selectUserId } from "../../app/userSlice";
+import { setFavoritePokemon } from "../../app/userSlice";
 
-interface EvolutionChainProps {
-  chain: EvolutionChainNode | null;
-}
-
-const EvolutionChainLine = ({ chain }: EvolutionChainProps) => {
-  if (!chain) return null;
-
-  const traverseChain = (node: EvolutionChainNode): string[] => {
-    if (!node || !node.species) return [];
-
-    let names: string[] = [node.species.name];
-    if (node.evolves_to && node.evolves_to.length > 0) {
-      for (let evo of node.evolves_to) {
-        names = names.concat(traverseChain(evo));
-      }
-    }
-    return names;
-  };
-
-  const evolutionNames = traverseChain(chain);
-
-  if (evolutionNames.length === 0) return <div>No evolutions found.</div>;
-
-  return (
-    <div style={{ fontSize: "1.5rem", color: "white", marginTop: "1rem" }}>
-      {evolutionNames.map((name, idx) => (
-        <Link
-          to={`/pokePage/${name}`}
-          className="evolutionChainLine__link"
-          key={name}
-        >
-          {name.charAt(0).toUpperCase() + name.slice(1)}
-          {idx < evolutionNames.length - 1 && <FaArrowRight />}
-        </Link>
-      ))}
-    </div>
-  );
-};
 export const PokePage = () => {
+  const [isVisible, setIsVisible] = useState(false);
+  useEffect(() => {
+    if (isVisible) {
+      const timer = setTimeout(() => {
+        setIsVisible(false);
+      }, 1000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [isVisible]);
+
+  const dispatch = useAppDispatch();
+
+  const [addFavoritePokemon] = useAddFavoritePokemonMutation();
+
+  const userId = useAppSelector(selectUserId);
+
   const { _pokemonName } = useParams();
   const { data, isLoading, error } = useGetPokemonByNameQuery(
     _pokemonName ? _pokemonName : " "
@@ -65,14 +43,12 @@ export const PokePage = () => {
     useGetPokemonSpeciesQuery(_pokemonName);
 
   const evolutionChainId = speciesData?.evolution_chain?.url
-    .split("/")
+    ?.split("/")
     .filter(Boolean)
     .pop();
 
   const { data: evolutionData, isLoading: evolutionLoading } =
-    useGetEvolutionChainQuery(evolutionChainId, {
-      skip: !evolutionChainId, // Skip fetching until we have the ID
-    });
+    useGetEvolutionChainQuery(evolutionChainId ? evolutionChainId : skipToken);
 
   if (speciesLoading || evolutionLoading) return <div>Loading...</div>;
 
@@ -85,21 +61,23 @@ export const PokePage = () => {
   if (error || !data)
     return <div>Could not fetch details for {_pokemonName}</div>;
 
-  const [isVisible, setIsVisible] = useState(false);
-
-  const handleClick = () => {
+  async function handleAddFavoritePokemon(e: any) {
     setIsVisible(true);
-  };
+    e.preventDefault();
+    console.log(userId);
 
-  useEffect(() => {
-    if (isVisible) {
-      const timer = setTimeout(() => {
-        setIsVisible(false);
-      }, 1000);
+    try {
+      const res = await addFavoritePokemon({
+        userId,
+        pokemonId: speciesData?.id,
+      }).unwrap();
 
-      return () => clearTimeout(timer);
+      console.log(res);
+      dispatch(setFavoritePokemon(res));
+    } catch (err: any) {
+      console.log(err);
     }
-  }, [isVisible]);
+  }
 
   return (
     <div className="pokePage__wrap">
@@ -111,7 +89,7 @@ export const PokePage = () => {
           <div className="pokePage_pokemon-header-display">
             <PokePagePokemonDisplay key={_pokemonName} id={data.id} />
             <button
-              onClick={handleClick}
+              onClick={handleAddFavoritePokemon}
               className="pokePage_pokemon-header-display-button"
             >
               Add To Saved
@@ -212,8 +190,9 @@ export const PokePage = () => {
         <div className="pokePage__games-featured">
           <h3>Moves :</h3>
           <div className="pokePage__games-featured-games">
-            {data.moves.map((m) => (
+            {data.moves.map((m, index) => (
               <div
+                key={index + 600}
                 style={{
                   backgroundColor: "#4151cc1c",
                   padding: ".5rem",
@@ -228,8 +207,9 @@ export const PokePage = () => {
         <div className="pokePage__games-featured">
           <h3>Games Featured :</h3>
           <div className="pokePage__games-featured-games">
-            {data.game_indices.map((game) => (
+            {data.game_indices.map((game, index) => (
               <div
+                key={index + 900}
                 style={{
                   backgroundColor: "#4151cc1c",
                   padding: ".5rem",

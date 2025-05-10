@@ -9,7 +9,6 @@ export const addFavoritePokemon = async (
 ): Promise<any> => {
   try {
     const { userId, pokemonId } = req.body;
-
     await prisma.pokemon.upsert({
       where: { id: pokemonId },
       update: {},
@@ -29,7 +28,6 @@ export const addFavoritePokemon = async (
         favoritePokemon: true,
       },
     });
-
     return res.json(updatedUser);
   } catch (err: any) {
     console.log(err);

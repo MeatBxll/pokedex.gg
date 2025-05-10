@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import "./NavBarButton.css";
 
 interface MainHeaderButtonProps {
@@ -12,10 +13,10 @@ export const NavBarButton = (props: MainHeaderButtonProps) => {
   return (
     <div>
       {href ? (
-        <a className="navBarButton__button" href={href}>
+        <Link className="navBarButton__button" to={href}>
           {icon}
           {text}
-        </a>
+        </Link>
       ) : (
         <button className="navBarButton__button" onClick={onClick}>
           {icon}

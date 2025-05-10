@@ -28,7 +28,7 @@ const baseQueryWithReauth = async (args: any, api: any, extraOptions: any) => {
       const firstName = api.getState().user.firstName;
       const username = api.getState().user.username;
       const teams = api.getState().user.teams;
-      const favoritedPokemon = api.getState().user.favoritedPokemon;
+      const favoritePokemon = api.getState().user.favoritePokemon;
       const about = api.getState().user.about;
 
       api.dispatch(
@@ -38,7 +38,7 @@ const baseQueryWithReauth = async (args: any, api: any, extraOptions: any) => {
           firstName,
           teams,
           about,
-          favoritedPokemon,
+          favoritePokemon,
           token: refreshResult.data.accessToken,
         })
       );

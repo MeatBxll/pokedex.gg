@@ -1,7 +1,8 @@
+import { Link } from "react-router-dom";
 import "./subHeaderButton.css";
 
 interface SubHeaderButtonProps {
-  href?: string;
+  href?: any;
   text?: string;
   icon?: any;
   isCurrentPage?: boolean;
@@ -10,13 +11,13 @@ interface SubHeaderButtonProps {
 export const SubHeaderButton = (props: SubHeaderButtonProps) => {
   const { href, text, icon, isCurrentPage } = props;
   return (
-    <a
+    <Link
       className={
         isCurrentPage ? "SubHeaderButton__isCurrentPage" : "SubHeaderButton"
       }
-      href={href}
+      to={href}
     >
       {icon} {text}
-    </a>
+    </Link>
   );
 };

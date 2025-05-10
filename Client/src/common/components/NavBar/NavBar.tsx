@@ -8,6 +8,7 @@ import { SubHeaderButton } from "./componenets/SubHeaderButton/SubHeaderButton";
 import { CgPokemon } from "react-icons/cg";
 import { SearchBar } from "../SearchBar/SearchBar";
 import { SavedPokemon } from "./SavedPokemon/SavedPokemon";
+import { Link } from "react-router-dom";
 
 interface NavBarProps {
   currentPage: PageTypes;
@@ -32,9 +33,9 @@ export const NavBar = (props: NavBarProps) => {
     <div className="homeHeader__wrap">
       <div className="homeHeader__main-Head">
         <div className="homeHeader__main-Head-Left">
-          <a href="/" className="homeHeader__title">
+          <Link to="/" className="homeHeader__title">
             POKEDEX.GG
-          </a>
+          </Link>
 
           <div className="homeHeader__stats-More">
             <p>

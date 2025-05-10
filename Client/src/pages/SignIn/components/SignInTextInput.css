@@ -1,3 +1,10 @@
+.signIn__wrap {
+  position: relative;
+  height: fit-content;
+  width: fit-content;
+  block-size: fit-content;
+}
+
 .signIn__TextInput {
   background-color: #4151cc34;
   font-family: Arial, Helvetica, sans-serif;
@@ -8,4 +15,16 @@
   color: aliceblue;
   border-radius: 0.3rem;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}
+
+.signIn__err {
+  position: absolute;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1.1rem;
+  text-transform: capitalize;
+  background-color: #24242457;
+  padding: 1rem;
+  border-radius: 1rem;
+  color: aliceblue;
+  transform: translate(15rem, 0);
 }

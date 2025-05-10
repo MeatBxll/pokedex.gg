@@ -1,6 +1,6 @@
 import "./App.css";
 
-import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { Home } from "./pages/Home/Home";
 import { PokePage } from "./pages/PokePage/PokePage";
 import { SignIn } from "./pages/SignIn/SignIn";

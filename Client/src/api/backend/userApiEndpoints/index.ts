@@ -1,10 +1,10 @@
 import { backendApi } from "../backendApi";
 
-export const authApiEndpoints = backendApi.injectEndpoints({
+export const userApiEndpoints = backendApi.injectEndpoints({
   endpoints: (builder) => ({
-    register: builder.mutation<any, any>({
+    addFavoritePokemon: builder.mutation<any, any>({
       query: (data: any) => ({
-        url: "/auth/register",
+        url: "/user/addFavoritePokemon",
         method: "POST",
         body: {
           ...data,
@@ -23,4 +23,5 @@ export const authApiEndpoints = backendApi.injectEndpoints({
   }),
 });
 
-export const { useRegisterMutation, useSignInMutation } = authApiEndpoints;
+export const { useAddFavoritePokemonMutation, useSignInMutation } =
+  userApiEndpoints;

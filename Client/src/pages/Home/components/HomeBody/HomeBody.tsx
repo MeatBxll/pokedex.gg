@@ -2,6 +2,7 @@ import "./homeBody.css";
 import { Top6PokeCard } from "../Top6PokeCard/Top6PokeCard";
 import { useState } from "react";
 import { SearchBar } from "../../../../common/components/SearchBar/SearchBar";
+import { Link } from "react-router-dom";
 
 export const HomeBody = () => {
   const [isHovered, setIsHovered] = useState(false);
@@ -55,8 +56,8 @@ export const HomeBody = () => {
           />
         </div>
       </section>
-      <a
-        href="/buildTeam"
+      <Link
+        to="/buildTeam"
         className="HomeBody__build-your-team"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
@@ -80,7 +81,7 @@ export const HomeBody = () => {
             src="https://www.pngplay.com/wp-content/uploads/10/Blastoise-Pokemon-PNG-Pic-Background.png"
           />
         </div>
-      </a>
+      </Link>
       <footer className="HomeBody__footer">
         <p className="HomeBody__footer-text">
           We dont have any copyright so I am just going to ipsum lorem Lorem

@@ -1,8 +1,13 @@
 import { useState } from "react";
 import { SignInTextInput } from "./components/SignInTextInput";
 import "./SignIn.css";
-import { Link } from "react-router-dom";
-import { useRegisterMutation } from "../../api/backend/authApiEndpoints";
+import { Link, useNavigate } from "react-router-dom";
+import {
+  useRegisterMutation,
+  useSignInMutation,
+} from "../../api/backend/authApiEndpoints";
+import { useAppDispatch } from "../../app/hooks";
+import { setCredentials } from "../../app/userSlice";
 
 export const SignIn = () => {
   const [isOnLogin, setIsOnLogin] = useState(true);
@@ -11,24 +16,46 @@ export const SignIn = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
-  const [firtName, setFirtName] = useState("");
+  const [firstName, setFirstName] = useState("");
 
-  const [checkUsername, setCheckUsername] = useState("");
+  const [checkEmail, setCheckEmail] = useState("");
   const [checkPassword, setCheckPassword] = useState("");
 
   const [passwordsDoNotMatch, setPasswordsDoNotMatch] = useState(false);
-
+  const [err, setErr] = useState<any>({});
+  const [loginErr, setLoginErr] = useState("");
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const [register] = useRegisterMutation();
+  const [signIn] = useSignInMutation();
+
+  async function LogIn(e: any) {
+    e.preventDefault();
+    const checkData = {
+      email: checkEmail,
+      password: checkPassword,
+    };
+
+    try {
+      const res = await signIn(checkData).unwrap();
+      console.log(res);
+      dispatch(setCredentials(res));
+      navigate("/");
+    } catch (err: any) {
+      console.log(err.data);
+      setLoginErr(err.data.error);
+    }
+  }
 
   async function Register(e: any) {
     e.preventDefault();
     if (password !== confirmPassword) {
       setPasswordsDoNotMatch(true);
       return;
-    }
+    } else setPasswordsDoNotMatch(false);
 
     const registerData = {
-      firtName,
+      firstName,
       username,
       email,
       password,
@@ -37,8 +64,10 @@ export const SignIn = () => {
     try {
       const res = await register(registerData).unwrap();
       console.log(res);
+      dispatch(setCredentials(res));
+      navigate("/");
     } catch (err: any) {
-      console.log(err.data);
+      setErr(err.data.errors);
     }
   }
 
@@ -73,16 +102,22 @@ export const SignIn = () => {
           style={isOnLogin ? {} : { display: "none" }}
         >
           <SignInTextInput
-            value={checkUsername}
-            onValueChanged={setCheckUsername}
-            placeHolder="Username"
+            value={checkEmail}
+            onValueChanged={setCheckEmail}
+            placeHolder="Email"
+            err={"none"}
           />
+
           <SignInTextInput
             value={checkPassword}
             onValueChanged={setCheckPassword}
             placeHolder="Password"
+            err={"none"}
           />
-          <button className="signIn__footer-buttons">Sign In</button>
+          <div>{loginErr}</div>
+          <button onClick={LogIn} className="signIn__footer-buttons">
+            Sign In
+          </button>
           <img
             className="signIn__img1"
             src="https://www.pngplay.com/wp-content/uploads/12/Snorlax-Pokemon-PNG-Images-HD.png"
@@ -99,30 +134,37 @@ export const SignIn = () => {
             alt="img"
           />
           <SignInTextInput
-            value={firtName}
-            onValueChanged={setFirtName}
+            value={firstName}
+            onValueChanged={setFirstName}
             placeHolder="First Name"
+            err={err.hasOwnProperty("firstName") ? err.firstName : "none"}
           />
           <SignInTextInput
             value={username}
             onValueChanged={setUsername}
             placeHolder="User Name"
+            err={err.hasOwnProperty("username") ? err.username : "none"}
           />
+
           <SignInTextInput
             value={email}
             onValueChanged={setEmail}
             placeHolder="Email"
+            err={err.hasOwnProperty("email") ? err.email : "none"}
           />
           <SignInTextInput
             value={password}
             onValueChanged={setPassword}
             placeHolder="Password"
+            err={err.hasOwnProperty("password") ? err.password : "none"}
           />
           <SignInTextInput
             value={confirmPassword}
             onValueChanged={setConfirmPassword}
             placeHolder="Confirm Password"
+            err={passwordsDoNotMatch ? "Passwords Dont Match" : "none"}
           />
+
           <button onClick={Register} className="signIn__footer-buttons">
             Sign Up !
           </button>
