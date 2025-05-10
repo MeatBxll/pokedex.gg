@@ -13,7 +13,7 @@ export const SavedPokemonSingle = (props: SavedPokemonSingleProps) => {
   if (error) return "";
 
   return (
-    <div draggable={isOnBuildTeamPage}>
+    <div draggable={false}>
       <div>{name}</div>
       <img
         draggable="false"
