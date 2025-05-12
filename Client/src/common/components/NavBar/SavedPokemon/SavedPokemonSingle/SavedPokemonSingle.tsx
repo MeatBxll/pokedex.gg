@@ -46,5 +46,3 @@ export const SavedPokemonSingle = (props: SavedPokemonSingleProps) => {
     </div>
   );
 };
-
-console.log("test");

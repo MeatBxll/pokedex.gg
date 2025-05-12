@@ -3,32 +3,41 @@ import "./YourTeam.css";
 import { useGetPokemonByNameQuery } from "../../api/pokemon/pokemonApiEndpoints";
 import { MdModeEdit } from "react-icons/md";
 import { useState } from "react";
+import { selectTeams } from "../../app/userSlice";
+import { useAppSelector } from "../../app/hooks";
 
 export const YourTeam = () => {
-  const teamOne = [
-    "Cramorant",
-    "Roserade",
-    "charmander",
-    "Talonflame",
-    "Garbodor",
-    "Wailord",
+  let teams = [
+    {
+      pokemon: [],
+    },
+    {
+      pokemon: [],
+    },
+    {
+      pokemon: [],
+    },
   ];
-  const teamTwo = [
-    "Bellibolt",
-    "Ludicolo",
-    "Darkrai",
-    "Trevenant",
-    "Miltank",
-    "Amoonguss",
-  ];
-  const teamThree = [
-    "Latios",
-    "ditto",
-    "Floatzel",
-    "charizard",
-    "Wooloo",
-    "Lapras",
-  ];
+
+  const allMyTeams = useAppSelector(selectTeams);
+  if (allMyTeams) teams = allMyTeams;
+
+  const teamOne: any = teams[0].pokemon.map((p: any) => p.id);
+  const teamTwo: any = teams[1].pokemon.map((p: any) => p.id);
+  const teamThree: any = teams[2].pokemon.map((p: any) => p.id);
+
+  for (let i = 0; teamOne.length < 6; i++) {
+    if (!teamOne[i]) teamOne.push("");
+  }
+
+  for (let i = 0; teamTwo.length < 6; i++) {
+    if (!teamTwo[i]) teamTwo.push("");
+  }
+
+  for (let i = 0; teamThree.length < 6; i++) {
+    if (!teamThree[i]) teamThree.push("");
+  }
+
   const { name, username, email } = {
     name: "name",
     username: "username",
@@ -81,7 +90,7 @@ export const YourTeam = () => {
 
         <div className="YourTeam__pokemon">
           <div className="YourTeam__pokemon-single-wrap">
-            {teamOne.map((name, index) => (
+            {teamOne.map((name: any, index: any) => (
               <div className="YourTeam__pokemon-single" key={index}>
                 <div className="YourTeam__pokemon-name">{name}</div>
                 {teamOne[index] !== "" ? (
@@ -95,7 +104,7 @@ export const YourTeam = () => {
             ))}
           </div>
           <div className="YourTeam__pokemon-single-wrap">
-            {teamTwo.map((name, index) => (
+            {teamTwo.map((name: any, index: any) => (
               <div className="YourTeam__pokemon-single" key={index}>
                 <div className="YourTeam__pokemon-name">{name}</div>
                 {teamTwo[index] !== "" ? (
@@ -109,7 +118,7 @@ export const YourTeam = () => {
             ))}
           </div>
           <div className="YourTeam__pokemon-single-wrap">
-            {teamThree.map((name, index) => (
+            {teamThree.map((name: any, index: any) => (
               <div className="YourTeam__pokemon-single" key={index}>
                 <div className="YourTeam__pokemon-name">{name}</div>
                 {teamThree[index] !== "" ? (

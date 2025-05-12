@@ -56,6 +56,8 @@ export const { setCredentials, logout, setFavoritePokemon }: any =
 export const selectFavoritePokemon = (state: RootState) =>
   state.user.favoritePokemon;
 
+export const selectTeams = (state: RootState) => state.user.teams;
+
 export const selectUserId = (state: RootState) => state.user.id;
 
 export default userSlice.reducer;
