@@ -14,7 +14,6 @@ export const SavedPokemonSingle = (props: SavedPokemonSingleProps) => {
   const dispatch = useAppDispatch();
   const [removeFavoritePokemon] = useRemoveFavoritePokemonMutation();
   const userId = useAppSelector(selectUserId);
-  
 
   async function removePokemonFromSaved(e: any) {
     e.preventDefault();
@@ -47,3 +46,5 @@ export const SavedPokemonSingle = (props: SavedPokemonSingleProps) => {
     </div>
   );
 };
+
+console.log("test");
