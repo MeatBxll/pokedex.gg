@@ -26,7 +26,10 @@ export const BuildTeamOptionsPokemonSingle = (
       className="bTOPS__wrap"
       id={name}
     >
-      <div>{name}</div>
+      <div>
+        <span>{id} </span>
+        {name}
+      </div>
       <img draggable="false" alt={name} width={70} height={70} src={imageUrl} />
       <Link
         style={isClicked ? {} : { display: "none" }}
