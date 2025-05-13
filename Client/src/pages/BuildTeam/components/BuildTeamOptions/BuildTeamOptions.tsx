@@ -1,12 +1,55 @@
-import { useEffect, useState } from "react";
+import { act, useEffect, useState } from "react";
 import "./BuildTeamOption.css";
 import { buildTeamOptionsDropDown } from "./BuildTeamOptionsDropDown/BuildTeamOptionsDropDown";
 import { PokePageTypeColors } from "../../../PokePage/components/PokePageTypeColors/PokePageTypeColors";
 import { BuildTeamOptionsAllPoke } from "./BuildTeamOptionAllPoke/BuildTeamOptionsAllPoke";
 import { FaTrashCan } from "react-icons/fa6";
 import { useGetPokemonByNameQuery } from "../../../../api/pokemon/pokemonApiEndpoints";
+import { useAppSelector } from "../../../../app/hooks";
+import { selectTeams } from "../../../../app/userSlice";
+import { useUpdatePokemonTeamMutation } from "../../../../api/backend/teamApiEndpoints";
 
 export const BuildTeamOptions = () => {
+  let teams = [
+    {
+      id: "",
+      pokemon: [],
+    },
+    {
+      id: "",
+      pokemon: [],
+    },
+    {
+      id: "",
+      pokemon: [],
+    },
+  ];
+
+  const allMyTeams = useAppSelector(selectTeams);
+  if (allMyTeams) teams = allMyTeams;
+
+  const team1: any = teams[0].pokemon.map((p: any) => p.id);
+  const team2: any = teams[1].pokemon.map((p: any) => p.id);
+  const team3: any = teams[2].pokemon.map((p: any) => p.id);
+
+  for (let i = 0; team1.length < 6; i++) {
+    if (!team1[i]) team1.push("");
+  }
+
+  for (let i = 0; team2.length < 6; i++) {
+    if (!team2[i]) team2.push("");
+  }
+
+  for (let i = 0; team3.length < 6; i++) {
+    if (!team3[i]) team3.push("");
+  }
+
+  const [teamOne, setTeamOne] = useState([...team1]);
+  const [teamTwo, setTeamTwo] = useState([...team2]);
+  const [teamThree, setTeamThree] = useState([...team3]);
+
+  const [currentTeam, setCurrentTeam] = useState(teamOne);
+
   const optionsData = buildTeamOptionsDropDown;
 
   function getColorByType(type: string): string | undefined {
@@ -20,11 +63,8 @@ export const BuildTeamOptions = () => {
   const [search, setSearch] = useState("");
 
   const [activeTeam, setActiveTeam] = useState(1);
-  const [teamOne, setTeamOne] = useState(["", "", "", "", "", ""]);
-  const [teamTwo, setTeamTwo] = useState(["", "", "", "", "", ""]);
-  const [teamThree, setTeamThree] = useState(["", "", "", "", "", ""]);
 
-  const [currentTeam, setCurrentTeam] = useState(teamOne);
+  const [updatePokemonTeam] = useUpdatePokemonTeamMutation();
 
   const setCurrentTeamTo = (nextTeam: any, nextTeamNumber: number) => {
     if (activeTeam === 1) setTeamOne(currentTeam);
@@ -71,7 +111,30 @@ export const BuildTeamOptions = () => {
     return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${data?.id}.png`;
   };
 
-  useEffect(() => {}, []);
+  const handleSaveTeam = async (e: any) => {
+    e.preventDefault();
+    let teamId = "";
+
+    if (activeTeam === 1) teamId = teams[0].id;
+    else if (activeTeam === 2) teamId = teams[1].id;
+    else if (activeTeam === 3) teamId = teams[2].id;
+
+    console.log(teamId);
+
+    console.log(currentTeam);
+    const filteredTeam = currentTeam.filter((t) => t !== "");
+    console.log(filteredTeam);
+
+    try {
+      const res = await updatePokemonTeam({
+        teamId,
+        pokemon: filteredTeam,
+      }).unwrap();
+      console.log(res);
+    } catch (err: any) {
+      console.log(err);
+    }
+  };
 
   return (
     <div className="buildTeamOptions">
@@ -151,7 +214,7 @@ export const BuildTeamOptions = () => {
               Team Three
             </button>
           </div>
-
+          <button onClick={handleSaveTeam}>Save Current Team</button>
           <button
             onClick={() => setCurrentTeam(["", "", "", "", "", ""])}
             className="buildTeamOptions__currentSelection-buttons-clear-selection"
