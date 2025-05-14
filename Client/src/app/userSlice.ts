@@ -10,6 +10,7 @@ interface UserState {
   favoritePokemon: [] | null;
   about: string | null;
   teams: [] | null;
+  isDarkMode: boolean;
 }
 
 const initialState: UserState = {
@@ -20,13 +21,14 @@ const initialState: UserState = {
   favoritePokemon: null,
   about: null,
   teams: null,
+  isDarkMode: true,
 };
 
 const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    setCredentials: (state: UserState, action: PayloadAction<UserState>) => {
+    setCredentials: (state: UserState, action: PayloadAction<any>) => {
       state.firstName = action.payload.firstName;
       state.userName = action.payload.userName;
       state.token = action.payload.token;
@@ -34,8 +36,9 @@ const userSlice = createSlice({
       state.favoritePokemon = action.payload.favoritePokemon;
       state.about = action.payload.about;
       state.teams = action.payload.teams;
+      if (!state.isDarkMode) state.isDarkMode = false; 
     },
-    Logout: (state: UserState) => {
+    Logout: (state: any) => {
       state.firstName = null;
       state.userName = null;
       state.token = null;
@@ -47,16 +50,28 @@ const userSlice = createSlice({
     setFavoritePokemon: (state: UserState, action: PayloadAction<any>) => {
       state.favoritePokemon = action.payload.favoritePokemon;
     },
+    setTeams: (state: UserState, action: PayloadAction<any>) => {
+      const newTeams: any = state.teams?.map((t: any) => {
+        if (t.id === action.payload.id) return action.payload;
+        return t;
+      });
+      state.teams = newTeams;
+    },
+    setIsDarkMode: (state: UserState, action: PayloadAction<any>) => {
+      state.isDarkMode = action.payload;
+    }
   },
 });
 
-export const { setCredentials, logout, setFavoritePokemon }: any =
+export const { setCredentials, logout, setFavoritePokemon, setTeams, setIsDarkMode }: any =
   userSlice.actions;
 
 export const selectFavoritePokemon = (state: RootState) =>
   state.user.favoritePokemon;
 
 export const selectTeams = (state: RootState) => state.user.teams;
+
+export const selectIsDarkMode = (state: RootState) => state.user.isDarkMode;
 
 export const selectUserId = (state: RootState) => state.user.id;
 

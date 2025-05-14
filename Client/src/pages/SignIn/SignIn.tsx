@@ -18,8 +18,8 @@ export const SignIn = () => {
   const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");
 
-  const [checkEmail, setCheckEmail] = useState("timmy@gmail.com");
-  const [checkPassword, setCheckPassword] = useState("timmy27timmy");
+  const [checkEmail, setCheckEmail] = useState("");
+  const [checkPassword, setCheckPassword] = useState("");
 
   const [passwordsDoNotMatch, setPasswordsDoNotMatch] = useState(false);
   const [err, setErr] = useState<any>({});

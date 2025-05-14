@@ -9,7 +9,9 @@ import { CgPokemon } from "react-icons/cg";
 import { SearchBar } from "../SearchBar/SearchBar";
 import { SavedPokemon } from "./SavedPokemon/SavedPokemon";
 import { Link } from "react-router-dom";
-
+import { useAppSelector, useAppDispatch } from "../../../app/hooks";
+import { selectUserId, selectIsDarkMode } from "../../../app/userSlice";
+import { setIsDarkMode } from "../../../app/userSlice";
 interface NavBarProps {
   currentPage: PageTypes;
 }
@@ -23,11 +25,15 @@ type PageTypes =
 
 export const NavBar = (props: NavBarProps) => {
   const { currentPage } = props;
-  const [DarkMode, setDarkMode] = useState(true);
 
-  function LightDarkMode() {
-    setDarkMode(!DarkMode);
-  }
+  const dispatch = useAppDispatch();
+
+  const isDarkMode = useAppSelector(selectIsDarkMode);
+  const userId = useAppSelector(selectUserId);
+
+  const handleSetIsDarkMode = () => {
+    dispatch(setIsDarkMode(!isDarkMode));
+  };
 
   return (
     <div className="homeHeader__wrap">
@@ -47,7 +53,9 @@ export const NavBar = (props: NavBarProps) => {
 
         <div className="homeHeader__main-Head-Right">
           <div>
-            <SavedPokemon isBuildTeamPage={currentPage === "BUILDTEAM"} />
+            {userId && (
+              <SavedPokemon isBuildTeamPage={currentPage === "BUILDTEAM"} />
+            )}
           </div>
           {currentPage != "HOME" ? (
             <div className="homeHeader__main-heade-right-search">
@@ -56,8 +64,8 @@ export const NavBar = (props: NavBarProps) => {
           ) : null}
           <NavBarButton href="/contactUs" text="Contact Us" />
           <NavBarButton
-            onClick={LightDarkMode}
-            icon={DarkMode ? <MdDarkMode /> : <FaSun />}
+            onClick={handleSetIsDarkMode}
+            icon={isDarkMode ? <MdDarkMode /> : <FaSun />}
           />
           <NavBarButton href="/SignIn" text="Sign In" />
         </div>
@@ -82,12 +90,14 @@ export const NavBar = (props: NavBarProps) => {
             />
           </div>
           <div className="homeHeader__sub-Head-Content">
-            <SubHeaderButton
-              isCurrentPage={currentPage === "YOURTEAM"}
-              icon={<CgPokemon />}
-              text="Your Team"
-              href="/yourTeam"
-            />
+            {userId && (
+              <SubHeaderButton
+                isCurrentPage={currentPage === "YOURTEAM"}
+                icon={<CgPokemon />}
+                text="Your Team"
+                href="/yourTeam"
+              />
+            )}
           </div>
         </div>
       </div>

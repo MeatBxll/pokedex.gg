@@ -1,11 +1,13 @@
 import "./BuildTeamTeams.css";
 import { useState } from "react";
 import "./BuildTeamTeams.css";
-import { useAppSelector } from "../../../../app/hooks";
+import { useAppSelector, useAppDispatch } from "../../../../app/hooks";
 import { selectTeams } from "../../../../app/userSlice";
 import { useUpdatePokemonTeamMutation } from "../../../../api/backend/teamApiEndpoints";
 import { BuildTeamTeamsButton } from "./BuildTeamTeamsButton/BuildTeamTeamsButton";
 import { BuildTeamTeamsDisplay } from "./BuildTeamTeamsDisplay/BuildTeamTeamsDisplay";
+import { setTeams } from "../../../../app/userSlice";
+import { selectUserId } from "../../../../app/userSlice";
 
 interface BuildTeamTeamsProps {
   enableDropping: any;
@@ -36,36 +38,39 @@ export const BuildTeamTeams = (props: BuildTeamTeamsProps) => {
   const team3: any = teams[2].pokemon.map((p: any) => p.id);
 
   for (let i = 0; team1.length < 6; i++) {
-    if (!team1[i]) team1.push("");
+    if (!team1[i]) team1.push(0);
   }
 
   for (let i = 0; team2.length < 6; i++) {
-    if (!team2[i]) team2.push("");
+    if (!team2[i]) team2.push(0);
   }
 
   for (let i = 0; team3.length < 6; i++) {
-    if (!team3[i]) team3.push("");
+    if (!team3[i]) team3.push(0);
   }
 
   const [updatePokemonTeam] = useUpdatePokemonTeamMutation();
+  const dispatch = useAppDispatch();
+  const userId = useAppSelector(selectUserId);
 
   const handleSaveTeam = async (e: any) => {
-    // e.preventDefault();
-    // let teamId = "";
-    // if (activeTeam === 1) teamId = teams[0].id;
-    // else if (activeTeam === 2) teamId = teams[1].id;
-    // else if (activeTeam === 3) teamId = teams[2].id;
-    // const filteredTeam = currentTeam.filter((t) => t !== "");
-    // console.log(filteredTeam);
-    // try {
-    //   const res = await updatePokemonTeam({
-    //     teamId,
-    //     pokemon: filteredTeam,
-    //   }).unwrap();
-    //   console.log(res);
-    // } catch (err: any) {
-    //   console.log(err);
-    // }
+    e.preventDefault();
+    let teamId = "";
+    if (activeTeam === 1) teamId = teams[0].id;
+    else if (activeTeam === 2) teamId = teams[1].id;
+    else if (activeTeam === 3) teamId = teams[2].id;
+    const filteredTeam = currentTeam.filter((t) => t !== 0);
+    console.log(filteredTeam);
+    try {
+      const res = await updatePokemonTeam({
+        teamId,
+        pokemon: filteredTeam,
+      }).unwrap();
+      console.log(res);
+      dispatch(setTeams(res));
+    } catch (err: any) {
+      console.log(err);
+    }
   };
 
   //my stuff
@@ -90,9 +95,9 @@ export const BuildTeamTeams = (props: BuildTeamTeamsProps) => {
       setCurrentTeam(nextTeam);
     }
   };
-  const [teamOne, setTeamOne] = useState([0, 0, 0, 0, 0, 0]);
-  const [teamTwo, setTeamTwo] = useState([0, 0, 0, 0, 0, 0]);
-  const [teamThree, setTeamThree] = useState([0, 0, 0, 0, 0, 0]);
+  const [teamOne, setTeamOne] = useState([...team1]);
+  const [teamTwo, setTeamTwo] = useState([...team2]);
+  const [teamThree, setTeamThree] = useState([...team3]);
 
   const [currentTeam, setCurrentTeam] = useState(teamOne);
 
@@ -139,12 +144,14 @@ export const BuildTeamTeams = (props: BuildTeamTeamsProps) => {
               onclick={() => setCurrentTeamTo(teamThree, 3)}
             />
           </div>
-          <button
-            className="buildTeamOptions__currentSelection-buttons-clear-selection"
-            onClick={handleSaveTeam}
-          >
-            Save Current Team
-          </button>
+          {userId && (
+            <button
+              className="buildTeamOptions__currentSelection-buttons-clear-selection"
+              onClick={handleSaveTeam}
+            >
+              Save Current Team
+            </button>
+          )}
           <button
             onClick={() => setCurrentTeam([0, 0, 0, 0, 0, 0])}
             className="buildTeamOptions__currentSelection-buttons-clear-selection"

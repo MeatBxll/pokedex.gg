@@ -9,9 +9,15 @@ import { AllPokemon } from "./pages/AllPokemon/AllPokemon";
 import { BuildTeam } from "./pages/BuildTeam/BuildTeam";
 import { YourTeam } from "./pages/YourTeam/YourTeam";
 
+import { useAppSelector } from "./app/hooks";
+import { selectIsDarkMode } from "./app/userSlice";
+
 function App() {
+  const isDarkMode = useAppSelector(selectIsDarkMode);
+  const bgColor = isDarkMode ? "#242424" : "#86C9E8";
+
   return (
-    <>
+    <div style={{ backgroundColor: bgColor }}>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/pokePage/:_pokemonName" element={<PokePage />} />
@@ -22,7 +28,7 @@ function App() {
         <Route path="/buildTeam" element={<BuildTeam />} />
         <Route path="/yourTeam" element={<YourTeam />} />
       </Routes>
-    </>
+    </div>
   );
 }
 
